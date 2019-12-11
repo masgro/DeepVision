@@ -21,35 +21,52 @@ Puede ocurrir que en muchas imágenes no se hayan etiquetados todos los fenómen
 
 Trabajaremos con un total de 17 etiquetas posibles, descritas a continuación:
 
-*Cloudy*: Imagen completamente nublada que no permite obtener observaciones adicionales.
-*Partly Cloudy*: Imagen parcialmente nublada.
-*Clear*: Imagen sin nubes.
-*Haze*: Imagen con neblina.
-*Primary (rainforest)*: Presencia de bosque "virgen" o áreas con alta densidad de vegetación.
-*Water*: Presencia de ríos, embalses o lagos.
-*Habitation*: Presencia de casas o edificios.
-*Agriculture*: Porciones de tierra sin árboles siendo utilizadas para la agricultura.
-*Road*: Caminos o rutas.
-*Cultivation*: Es un subconjunto de Agriculture que se refiere a pequeñas granjas siendo explotadas por una persona o familia como medio de supervivencia.
-*Bare Ground*: Áreas sin presencia de árboles por causas naturales y no como resultado de la actividad humana.
-*Slash and Burn*: Áreas que han sido incendiadas recientemente.
-*Selective Logging*: Zonas de tala selectiva de especies de árboles de alto valor.
-*Blooming*: Es un fenómeno natural donde ciertas especies de árboles, eclosionan, dan frutos y florecen para aumentar las chances de polinización cruzada.
-*Conventional Mining*: Zona con presencia de minería legal a larga escala.
-*"Artisinal" Mining*: Operaciones de minería a baja escala, usualmente ilegales.
-*Blow Down*: Fenómeno natural que ocurre cuando el aire frío y seco de los Andes se asienta sobre el aire cálido y húmedo en la selva. Estos fuertes vientos derriban los árboles más grandes de la selva tropical, y las áreas abiertas resultantes son visibles desde el espacio.
+**Cloudy**: Imagen completamente nublada que no permite obtener observaciones adicionales.
+
+**Partly Cloudy**: Imagen parcialmente nublada.
+
+**Clear**: Imagen sin nubes.
+
+**Haze**: Imagen con neblina.
+
+**Primary (rainforest)**: Presencia de bosque "virgen" o áreas con alta densidad de vegetación.
+
+**Water**: Presencia de ríos, embalses o lagos.
+
+**Habitation**: Presencia de casas o edificios.
+
+**Agriculture**: Porciones de tierra sin árboles siendo utilizadas para la agricultura.
+
+**Road**: Caminos o rutas.
+
+**Cultivation**: Es un subconjunto de Agriculture que se refiere a pequeñas granjas siendo explotadas por una persona o familia como medio de supervivencia.
+
+**Bare Ground**: Áreas sin presencia de árboles por causas naturales y no como resultado de la actividad humana.
+
+**Slash and Burn**: Áreas que han sido incendiadas recientemente.
+
+**Selective Logging**: Zonas de tala selectiva de especies de árboles de alto valor.
+
+**Blooming**: Es un fenómeno natural donde ciertas especies de árboles, eclosionan, dan frutos y florecen para aumentar las chances de polinización cruzada.
+
+**Conventional Mining**: Zona con presencia de minería legal a larga escala.
+
+**"Artisinal" Mining**: Operaciones de minería a baja escala, usualmente ilegales. 
+
+**Blow Down**: Fenómeno natural que ocurre cuando el aire frío y seco de los Andes se asienta sobre el aire cálido y húmedo en la selva. Estos fuertes vientos derriban los árboles más grandes de la selva tropical, y las áreas abiertas resultantes son visibles desde el espacio.
 
 ## Modelos
 
 Se consideran 2 modelos, uno tomando como base la red ResNet50 y otro considerando la red EfficientB0. En cada caso se ignoran las capas superiores y se agregan al modelo final 2 capas densas a la salida
-de cada una de las cuales se incluye una capa de _dropout_. La siguientes figuras muestran la comparación entre estos modelos. Los modelos _ResNet_ y _Efficient 1_ son entrenados considerando los
-siguientes _data augmentation_: 
+de cada una de las cuales se incluye una capa de *dropout*. La siguientes figuras muestran la comparación entre estos modelos. Los modelos *ResNet* y *Efficient 1* son entrenados considerando los
+siguientes **data augmentation**: 
 - horizontal flip
 - vertical flip
 - rotation
 - width shift
 - height shift
-Mientras que el modelo _Efficient 2_ solo se entrenó utilizando _flip_ vertical y horizontal.
+
+Mientras que el modelo *Efficient 2* solo se entrenó utilizando *flip* vertical y horizontal.
 
 ![Accuracy](https://github.com/masgro/DeepVision/blob/master//images/image01.png "Accuracy")
 ![Loss](https://github.com/masgro/DeepVision/blob/master//images/image02.png "Loss")
