@@ -5,9 +5,11 @@
 En este trabajo, se utilizarán imágenes satelitales del Amazonas para entrenar un modelo de Deep Learning que sea capaz de dar información acerca del contenido de las mismas.
 
 ### Imágenes
+
 Se trabajará con más de 40.000 imágenes satelitales en RGB donde cada píxel representa un área de 3.7 metros. Los datos provienen de los satélites Flock 2 de la compañía Planet, recolectados entre el 1 de Enero de 2016 y el 1 de Febrero de 2017. Todas las escenas provienen de la cuenca del Amazonas que incluye Brasil, Perú, Uruguay, Colombia, Venezuela, Guyana, Bolivia y Ecuador.
 
 ### Etiquetas
+
 Las clases a predecir para cada imágen representan un conjunto de fenómenos de interés que se desean analizar en el Amazonas. Estas etiquetas pueden distribuirse en tres grupos:
 
 - Condiciones atmosféricas
@@ -58,19 +60,20 @@ Trabajaremos con un total de 17 etiquetas posibles, descritas a continuación:
 ## Modelos
 
 Se consideran 2 modelos, uno tomando como base la red ResNet50 y otro considerando la red EfficientB0. En cada caso se ignoran las capas superiores y se agregan al modelo final 2 capas densas a la salida
-de cada una de las cuales se incluye una capa de *dropout*. La siguientes figuras muestran la comparación entre estos modelos. Los modelos *ResNet* y *Efficient 1* son entrenados considerando los
-siguientes **data augmentation**: 
+de cada una de las cuales se incluye una capa de *dropout*. La cantidad de neuras en cada capa es de 2048 y 1024, siendo la menor la que se encuentra justo antes de la capa final de *decisión*. Los modelos fueron entrados considerando los siguientes *data augmentation*: 
+
 - horizontal flip
 - vertical flip
 - rotation
 - width shift
 - height shift
 
-Mientras que el modelo *Efficient 2* solo se entrenó utilizando *flip* vertical y horizontal.
+La siguientes figuras muestran la comparación entre estos modelos. 
 
-![Accuracy](https://github.com/masgro/DeepVision/blob/master//images/image01.png "Accuracy")
-![Loss](https://github.com/masgro/DeepVision/blob/master//images/image02.png "Loss")
-![Recall](https://github.com/masgro/DeepVision/blob/master//images/image03.png "Recall")
+![Accuracy](https://github.com/masgro/DeepVision/blob/master//images/accuracy.png "Accuracy")
+![Loss](https://github.com/masgro/DeepVision/blob/master//images/loss.png "Loss")
+![Recall](https://github.com/masgro/DeepVision/blob/master//images/recall.png "Recall")
+![Recall](https://github.com/masgro/DeepVision/blob/master//images/val_accuracy.png "Recall")
 
 ### Train vs Validation ResNet
 
@@ -80,17 +83,25 @@ Mientras que el modelo *Efficient 2* solo se entrenó utilizando *flip* vertical
 
 ### Train vs Validation Efficient 1
 
-![Accuracy EfficientB0](https://github.com/masgro/DeepVision/blob/master//images/image04.png "Accuracy EfficientB0")
-![Loss EfficientB0](https://github.com/masgro/DeepVision/blob/master//images/image05.png "Loss EfficientB0")
-![Recall EfficientB0](https://github.com/masgro/DeepVision/blob/master//images/image06.png "Recall EfficientB0")
+![Accuracy Efficient 1](https://github.com/masgro/DeepVision/blob/master//images/image04.png "Accuracy Efficient 1")
+![Loss Efficient 1](https://github.com/masgro/DeepVision/blob/master//images/image05.png "Loss Efficient 1")
+![Recall Efficient 1](https://github.com/masgro/DeepVision/blob/master//images/image06.png "Recall Efficient 1")
 
 ### Train vs Validation Efficient 2
 
-En este caso solo se utilizó _flip_ vertical y horizontal para hacer el _data augmentation_
+Con el fin de observar como varía el entrenamiento considerando solo algunas de las operaciones de *data augmentation*, en este modelo solo se utilizaron las operaciones de *flip* vertical y horizontal.
 
-![Accuracy EfficientB0](https://github.com/masgro/DeepVision/blob/master//images/image07.png "Accuracy EfficientB0")
-![Loss EfficientB0](https://github.com/masgro/DeepVision/blob/master//images/image09.png "Loss EfficientB0")
-![Recall EfficientB0](https://github.com/masgro/DeepVision/blob/master//images/image08.png "Recall EfficientB0")
+![Accuracy Efficient 2](https://github.com/masgro/DeepVision/blob/master//images/image07.png "Accuracy Efficient 2")
+![Loss Efficient 2](https://github.com/masgro/DeepVision/blob/master//images/image09.png "Loss Efficient 2")
+![Recall Efficient 2](https://github.com/masgro/DeepVision/blob/master//images/image08.png "Recall Efficient 2")
+
+### Train vs Validation Efficient 3
+
+Se probó también cambiando la dimensión de las capas finales de (2048,1024) a (1024,512). Los resultados del entrenamiento fueron los siguientes
+
+![Accuracy Efficient 3](https://github.com/masgro/DeepVision/blob/master//images/image13.png "Accuracy Efficient 3")
+![Loss Efficient 3](https://github.com/masgro/DeepVision/blob/master//images/image15.png "Loss Efficient 3")
+![Recall Efficient 3](https://github.com/masgro/DeepVision/blob/master//images/image14.png "Recall Efficient 3")
 
 ## Conclusión
 
@@ -103,6 +114,7 @@ Las siguientes tablas resumen los resultados obtenidos
 | ResNet | 0.9498 | 0.8085 | 0.1537 |
 | Efficient 1 | 0.9628 | 0.8567 | 0.1070 | 
 | Efficient 2 | 0.9785 | 0.9196 | 0.0594 |
+| Efficient 3 | 0.9625 | 0.8562 | 0.1064 |
 
 ### Validation
 
@@ -111,4 +123,7 @@ Las siguientes tablas resumen los resultados obtenidos
 | ResNet | 0.9043 | 0.5652 | 1.474 |
 | Efficient 1 | 0.9634 | 0.8677 | 0.104 | 
 | Efficient 2 | 0.9624 | 0.877 | 0.1249 |
+| Efficient 3 | 0.9648 | 0.8806 | 0.0996 |
 
+- Los mejores resultados se consiguienron con el modelo Efficient 3, i.e. EfficientB0 + 2 Capas (1024,512) y utilizando todos las operaciones de *data augmentation* consideradas.
+- Los modelos Efficient 1 y 3 se podrían continuar entrenando para lograr mejores resultados ya que al momento de corte no mostraban estar realizando *overfitting*
